@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Watch</title>
+    <style>
+        *{
+            margin:0px;
+            padding:0px;
+            box-sizing:border-box;
+        }
+        .main-container{
+            background:rgb(129, 54, 54);
+            width:400px;
+            height:250px;
+            margin:auto;
+            margin-top:40px;
+            text-align:center;
+            color:white;
+            border-radius:50px;
+        }
+        button{
+            background:blue;
+            color:white;
+            padding:6px 12px;
+            border:none;
+            cursor:pointer;
+        }
+        .btnsection{
+            margin-top:20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <h1>Stop Watch</h1>
+        <br>
+        <br>
+        <div>
+           <h1 id="result">00:00:00</h1>
+        </div>
+        <div class="btnsection">
+        <button id="start">Start</button>
+        <button onclick="stop()" class="stop">Stop</button>
+        <button onclick="reset()" >Reset</button>
+    </div>
+    </div>
+    
+
+    <script>
+     let result = document.getElementById('result');
+     let start = document.getElementById('start')
+     let freeze = document.querySelector('.stop')
+
+     start.addEventListener('click', func);
+     let timer =null;
+    
+     let [second,minute,hour] = [0,0,0];
+     
+     function watch(){
+        second++;
+        if(second==60){
+            second=0;
+            minute++;
+            if(minute==60){
+                minute=0;
+                hour++
+            }
+        }
+        let s = second < 10 ? "0" + second : second; 
+        let m = minute < 10 ? "0" + minute : minute; 
+        let h = hour < 10 ? "0" + hour : hour; 
+        result.innerHTML = h + ":" + m + ":" + s;
+     }
+
+     function func(){
+        if(timer!==null){
+            clearInterval(timer)
+        }
+        timer = setInterval(watch,1000);
+     }
+
+     function stop(){
+        clearInterval(timer);
+     }
+     function reset(){
+        clearInterval(timer);
+        [second,minute,hour] = [0,0,0];
+        result.innerHTML = "00:00:00"
+     }
+
+     </script>
+    
+    
+</body>
+</html>
